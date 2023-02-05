@@ -10,6 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UltimateQATest extends PageSetup{
 
 
@@ -42,8 +45,37 @@ public class UltimateQATest extends PageSetup{
         //sposoby na szukanie elementów na stronie:
         WebElement thanksForContactingUsText = driver.findElement(By.xpath("//div[@class='et-pb-contact-message']/p"));
         Assertions.assertEquals("Thanks for contacting us", thanksForContactingUsText.getText());
-        
+
     }
+
+    @Test
+    public void TestThree() {
+        List<WebElement> listOfQATitles = driver.findElements(By.xpath("//table[@id='htmlTableId']//tr"));
+        //List<WebElement> listOfQATitles = driver.findElements(By.xpath("//table[@id='htmlTableId']//tr"));
+        //   //table[@id='htmlTableId']//tr[4]/td[1]
+        Assertions.assertEquals(4, listOfQATitles.size());
+    }
+    @Test
+    public void TestFour(){
+
+        List<String> listOfCars = new ArrayList<>();
+        listOfCars.add("volvo");
+        listOfCars.add("saab");
+        listOfCars.add("opel");
+        listOfCars.add("audi");
+
+        for (int i=0; i<listOfCars.size();i++){
+            WebElement dropdownOfCars = driver.findElement(By.xpath("//div[text()='Select an option and validate that it is selected']/select"));
+            dropdownOfCars.click();
+
+            WebElement dropdownOfCarsOption = driver.findElement(By.xpath("//option[@value='"+listOfCars.get(i)+"']"));
+            dropdownOfCarsOption.click();
+
+            Assertions.assertTrue(dropdownOfCarsOption.isSelected());
+            Assertions.assertEquals(listOfCars.get(i),dropdownOfCarsOption.getText().toLowerCase());
+        }
+    }
+
 }
 
 
